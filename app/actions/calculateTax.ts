@@ -3,6 +3,8 @@
 import { connectDB } from "@/lib/mongodb";
 import { TaxSlab } from "@/lib/models/TaxSlab";
 
+console.log("MONGODB_URI exists:", !!process.env.MONGODB_URI);
+
 export interface TaxResult {
   grossSalary: number;
   totalTax: number;
