@@ -1,4 +1,4 @@
-# SL Tax Calculator
+# SL Salary Tax Calculator
 
 A full-stack web application that helps Sri Lankans instantly calculate their monthly APIT/PAYE salary tax and EPF deductions.
 
@@ -100,6 +100,4 @@ Access the admin panel at `/admin/login` to manage tax slabs dynamically.
 
 MIT License — feel free to use this project!
 
----
 
-Made with ❤️ in Sri Lanka 🇱🇰
