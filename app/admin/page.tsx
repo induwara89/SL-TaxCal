@@ -6,7 +6,7 @@ import { getSlabs, updateSlab, deleteSlab, addSlab } from "@/app/actions/taxSlab
 import { logoutAdmin, verifyAdmin } from "@/app/actions/adminAuth";
 
 interface TaxSlab {
-  id: number;
+  id: string;
   minIncome: number;
   maxIncome: number;
   rate: number;
@@ -15,7 +15,7 @@ interface TaxSlab {
 export default function AdminPage() {
   const router = useRouter();
   const [slabs, setSlabs] = useState<TaxSlab[]>([]);
-  const [editingId, setEditingId] = useState<number | null>(null);
+  const [editingId, setEditingId] = useState<string | null>(null);
   const [editData, setEditData] = useState({ minIncome: 0, maxIncome: 0, rate: 0 });
   const [newSlab, setNewSlab] = useState({ minIncome: 0, maxIncome: 0, rate: 0 });
   const [isPending, startTransition] = useTransition();
@@ -35,7 +35,7 @@ export default function AdminPage() {
     setEditData({ minIncome: slab.minIncome, maxIncome: slab.maxIncome, rate: slab.rate });
   };
 
-  const handleUpdate = (id: number) => {
+  const handleUpdate = (id: string) => {
     startTransition(async () => {
       await updateSlab(id, editData.rate, editData.minIncome, editData.maxIncome);
       setSlabs(await getSlabs());
@@ -43,7 +43,7 @@ export default function AdminPage() {
     });
   };
 
-  const handleDelete = (id: number) => {
+  const handleDelete = (id: string) => {
     startTransition(async () => {
       await deleteSlab(id);
       setSlabs(await getSlabs());

@@ -112,7 +112,7 @@ export default function Home() {
                   value={salary}
                   onChange={(e) => setSalary(e.target.value)}
                   onKeyDown={(e) => e.key === "Enter" && handleCalculate()}
-                  placeholder="200,000"
+                  placeholder="ex: 200,000"
                 />
                 <div className="epf-row">
                   <input type="checkbox" id="epf" checked={deductEPF} onChange={(e) => setDeductEPF(e.target.checked)} />
@@ -156,7 +156,7 @@ export default function Home() {
                   value={salary}
                   onChange={(e) => setSalary(e.target.value)}
                   onKeyDown={(e) => e.key === "Enter" && handleCalculate()}
-                  placeholder="200,000"
+                  placeholder="ex: 200,000"
                 />
                 <div className="epf-row">
                   <input type="checkbox" id="epf2" checked={deductEPF} onChange={(e) => setDeductEPF(e.target.checked)} />

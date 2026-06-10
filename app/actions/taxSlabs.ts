@@ -1,39 +1,34 @@
 "use server";
 
-import { PrismaClient } from "@prisma/client";
-import { PrismaBetterSqlite3 } from "@prisma/adapter-better-sqlite3";
+import { connectDB } from "@/lib/mongodb";
+import { TaxSlab } from "@/lib/models/TaxSlab";
 import { revalidatePath } from "next/cache";
 
-const adapter = new PrismaBetterSqlite3({
-  url: "file:./prisma/dev.db",
-});
-
-const prisma = new PrismaClient({ adapter });
-
 export async function getSlabs() {
-  return await prisma.taxSlab.findMany({
-    orderBy: { minIncome: "asc" },
-  });
+  await connectDB();
+  const slabs = await TaxSlab.find().sort({ minIncome: 1 }).lean();
+  return slabs.map((s: any) => ({
+    id: s._id.toString(),
+    minIncome: s.minIncome,
+    maxIncome: s.maxIncome,
+    rate: s.rate,
+  }));
 }
 
-export async function updateSlab(id: number, rate: number, minIncome: number, maxIncome: number) {
-  await prisma.taxSlab.update({
-    where: { id },
-    data: { rate, minIncome, maxIncome },
-  });
+export async function updateSlab(id: string, rate: number, minIncome: number, maxIncome: number) {
+  await connectDB();
+  await TaxSlab.findByIdAndUpdate(id, { rate, minIncome, maxIncome });
   revalidatePath("/admin");
 }
 
-export async function deleteSlab(id: number) {
-  await prisma.taxSlab.delete({
-    where: { id },
-  });
+export async function deleteSlab(id: string) {
+  await connectDB();
+  await TaxSlab.findByIdAndDelete(id);
   revalidatePath("/admin");
 }
 
 export async function addSlab(minIncome: number, maxIncome: number, rate: number) {
-  await prisma.taxSlab.create({
-    data: { minIncome, maxIncome, rate },
-  });
+  await connectDB();
+  await TaxSlab.create({ minIncome, maxIncome, rate });
   revalidatePath("/admin");
 }
