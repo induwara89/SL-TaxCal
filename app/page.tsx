@@ -92,7 +92,7 @@ export default function Home() {
           <div className="logo">tax<span>.</span>lk</div>
           <div className="nav-center">
             <h1>Sri Lanka Salary Tax Calculator</h1>
-            <p>APIT / PAYE — 2024 / 2025 TAX YEAR</p>
+            <p>APIT / PAYE — 2025 / 2026 TAX YEAR</p>
           </div>
           <a href="/admin/login" className="admin-btn">Admin</a>
         </nav>
